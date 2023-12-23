@@ -6,13 +6,13 @@ const app = express();
 app.use(express.json());
 
 connectDB().catch((error) => {
-    console.log(error.message);
-    process.exit(1);
+  console.log(error.message);
+  process.exit(1);
 });
 
 app.use((err, req, res, next) => {
-    console.log(err.stack);
-    res.status(500).send('Something broke!');
+  console.log(err.stack);
+  res.status(500).send("Something broke!");
 });
 
 app.get("/todo", async (req, res) => {
@@ -34,19 +34,24 @@ app.get("/todo", async (req, res) => {
 });
 
 app.get("/todo/:id", async (req, res) => {
-  const todo = await ToDo.findById(req.params.id);
-  if (!todo) {
+  try {
+    const todo = await ToDo.findById(req.params.id);
+    if (!todo) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+    const response = {
+      data: {
+        id: todo._id,
+        title: todo.title,
+        description: todo.description,
+        completed: todo.completed,
+      },
+    };
+    res.json(response);
+  } catch (err) {
+    console.log(err);
     return res.status(404).json({ error: "Todo not found" });
   }
-  const response = {
-    data: {
-      id: todo._id,
-      title: todo.title,
-      description: todo.description,
-      completed: todo.completed,
-    },
-  };
-  res.json(response);
 });
 
 app.put("/todo/:id", async (req, res) => {
@@ -61,25 +66,30 @@ app.put("/todo/:id", async (req, res) => {
   if ((await ToDo.findById(req.params.id)) === null) {
     return res.status(404);
   }
-  const todo = await ToDo.findByIdAndUpdate(
-    req.params.id,
-    {
-      title: req.body.title,
-      description: req.body.description,
-      completed: req.body.completed,
-    },
-    { new: true }
-  );
+  try {
+    const todo = await ToDo.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        description: req.body.description,
+        completed: req.body.completed,
+      },
+      { new: true }
+    );
 
-  const response = {
-    data: {
-      id: todo._id,
-      title: todo.title,
-      description: todo.description,
-      completed: todo.completed,
-    },
-  };
-  res.json(response);
+    const response = {
+      data: {
+        id: todo._id,
+        title: todo.title,
+        description: todo.description,
+        completed: todo.completed,
+      },
+    };
+    res.json(response);
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ error: "Todo not found" });
+  }
 });
 
 app.post("/todo", async (req, res) => {
@@ -109,11 +119,16 @@ app.post("/todo", async (req, res) => {
 });
 
 app.delete("/todo/:id", async (req, res) => {
-  const todo = await ToDo.findByIdAndDelete(req.params.id);
-  if (!todo) {
+  try {
+    const todo = await ToDo.findByIdAndDelete(req.params.id);
+    if (!todo) {
+      return res.status(404).json({ error: "Todo not found" });
+    }
+    res.status(200).json({ message: "Todo deleted" });
+  } catch (err) {
+    console.log(err);
     return res.status(404).json({ error: "Todo not found" });
   }
-  res.status(200).json({ message: "Todo deleted" });
 });
 
 app.listen(PORT, () => {
