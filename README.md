@@ -8,7 +8,7 @@ This project is a To-Do API developed in NodeJS.
 
 1. Clone the repository:
 ```sh
-git clone <repository-url>
+git clone https://github.com/desujoy/gdsc_task_round_backend_3
 ```
 
 2. Install the dependencies:
