@@ -15,6 +15,10 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
+app.get("/", (req, res) => {
+    res.json({ message: "To-Do API developed in NodeJS", version: "1.0.0", project_link: "https://github.com/desujoy/gdsc_task_round_backend_3", author: "Sujoy De", author_link: "https://github.com/desujoy" });
+    });
+
 app.get("/todo", async (req, res) => {
   const todos = await ToDo.find();
   if (!todos) {
