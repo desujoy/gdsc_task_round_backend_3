@@ -1,0 +1,31 @@
+{
+  "name": "gdsc_task_round_backend_3",
+  "version": "1.0.0",
+  "description": "GDSC Task Round for Backend: To-do API",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/desujoy/gdsc_task_round_backend_3.git"
+  },
+  "keywords": [
+    "to-do",
+    "api",
+    "backend"
+  ],
+  "author": "Sujoy De",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/desujoy/gdsc_task_round_backend_3/issues"
+  },
+  "homepage": "https://github.com/desujoy/gdsc_task_round_backend_3#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  }
+}
