@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/desujoy/gdsc_task_round_backend_3#readme",
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.8.3"
   }
